@@ -1,29 +1,21 @@
-define HELP
-Targets:
-
-    syntax - check syntax of playbook and included roles
-      test - test changes
-      diff - test and diff changes
-      push - push changes
-
-Variables:
-
-      PLAY - playbook to use (default: site.yml)
-      HOST - limit to hosts (default: all)
-       TAG - limit to tags (default: all)
-endef
-export HELP
-
+PLAY	= site.yml
 HOST	= all
 TAG	= all
-PLAY	= site.yml
 COMMAND	= ansible-playbook $(PLAY) -l $(HOST) -t $(TAG)
 
 help:
-	@echo "$$HELP"
+	@printf "Targets:\n\n"
+	@printf "    syntax - check syntax of playbook and included roles\n"
+	@printf "      test - test changes\n"
+	@printf "      diff - test and diff changes\n"
+	@printf "      push - push changes\n\n"
+	@printf "Variables:\n\n"
+	@printf "      PLAY - playbook to use (default: site.yml)\n"
+	@printf "      HOST - limit to hosts (default: all)\n"
+	@printf "       TAG - limit to tags (default: all)\n"
 
 syntax:
-	$(COMMAND) -v --syntax
+	$(COMMAND) --syntax-check -vvv
 
 test:
 	$(COMMAND) --check
